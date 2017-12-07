@@ -1,4 +1,4 @@
-import mxnet as mx
+﻿import mxnet as mx
 import logging
 
 logging.getLogger().setLevel(logging.DEBUG)
