@@ -18,7 +18,7 @@
 Для перевода выборки в .rec формат использовался скрипт [im2rec.py](https://github.com/apache/incubator-mxnet/blob/master/tools/im2rec.py "im2rec script")
 
 ## Тестовая инфраструктура
-\[Лёшин комп или кластер\]
+Intel® Core™ i5-7200U CPU @ 2.50GHz (2 физ. ядра + 2 вирт.), GeForce 940MX/PCIe/SSE2/2ГБ, 8ГБ RAM
 
 ## Установка необходимых библиотек
 1. Установить интерпретатор Python версии 2.7.x, который можно скачать с [официального сайта](https://www.python.org/downloads/ "python download") или установить его в составе пакета [Anaconda](https://www.anaconda.com/download/ "Anaconda download")
