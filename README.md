@@ -17,6 +17,9 @@
 
 Для перевода выборки в .rec формат использовался скрипт [im2rec.py](https://github.com/apache/incubator-mxnet/blob/master/tools/im2rec.py "im2rec script")
 
+Готовые .rec файлы: [тренировочная выборка](https://drive.google.com/file/d/1V5ah0pdvAz-e0IJwsnM56t_00Qmf1jLH/view "train rec")
+[тестовая выборка](https://drive.google.com/file/d/1pVmOwamvBJ15RaImW_kVHlYUNmxPK4Kf/view "test rec")
+
 ## Тестовая инфраструктура
 Intel® Core™ i5-7200U CPU @ 2.50GHz (2 физ. ядра + 2 вирт.), GeForce 940MX/PCIe/SSE2/2ГБ, 8ГБ RAM
 
