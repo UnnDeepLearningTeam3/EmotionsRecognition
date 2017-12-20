@@ -1,23 +1,22 @@
 import glob
-
+import mxnet as mx
 import cv2
 import numpy as np
 
-pic_size = 128
 emotions = ['anger', 'disgust', 'fear', 'joy', 'neutral', 'sadness', 'surprise']
 
 
 def load_pictures(path):
     pictures = []
-    validation = []
-    for folder in emotions:
-        pics = [pic for pic in glob.glob(path + '%s/*' % folder)]
-        for pic in pics[:10]:#pics:#np.random.choice(pics, len(pics)):
+    labels = []
+    for label_idx, emotion in enumerate(emotions):
+        pics = [pic for pic in glob.glob(path + '%s/*' % emotion)]
+        for pic in pics[:500]:#pics:#np.random.choice(pics, len(pics)):
             img = cv2.imread(pic)
             img = img.astype('float32') / 255
             pictures.append(img)
-            validation.append(img) #for encoder use input as desired output
-    return np.array(pictures).ravel(), np.array(pictures).ravel()
+            labels.append(label_idx)
+    return np.array(pictures), np.array(labels)
 
 
 def split_data(X, y, percent):
@@ -27,4 +26,4 @@ def split_data(X, y, percent):
     X = X[rand_indicies]
     y = y[rand_indicies]
     index = int(n * percent / 100)
-    return X[:index], X[index:], y[:index], y[index:]
+    return mx.nd.array(X[:index]), mx.nd.array(X[index:]), y[:index], y[index:]
