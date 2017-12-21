@@ -28,13 +28,13 @@ print ('Building architecture...')
 data = mx.sym.var('data')
 data = mx.sym.flatten(data=data)
 
-layer1 = mx.symbol.FullyConnected(data=data, num_hidden=1200, name='layer_'+str(layers[0]))
+layer1 = mx.symbol.FullyConnected(data=data, num_hidden=layers[0], name='layer_'+str(layers[0]))
 layer1_activation = mx.sym.Activation(data=layer1, act_type='sigmoid', name='layer_'+str(layers[0])+'_activation')
 
-layer2 = mx.symbol.FullyConnected(data=layer1_activation, num_hidden=500, name='layer_'+str(layers[1]))
+layer2 = mx.symbol.FullyConnected(data=layer1_activation, num_hidden=layers[1], name='layer_'+str(layers[1]))
 layer2_activation = mx.sym.Activation(data=layer2, act_type='sigmoid', name='layer_'+str(layers[1])+'_activation')
 
-layer3 = mx.symbol.FullyConnected(data=layer2_activation, num_hidden=7, name='layer_'+str(layers[2]))
+layer3 = mx.symbol.FullyConnected(data=layer2_activation, num_hidden=layers[2], name='layer_'+str(layers[2]))
 softmax = mx.sym.SoftmaxOutput(data=layer3, name="softmax")
 
 model = mx.mod.Module(symbol=softmax, context=mx.gpu())
