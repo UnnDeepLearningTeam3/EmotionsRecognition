@@ -2,7 +2,7 @@ import mxnet as mx
 import logging
 from ImageReader import *
 import time
-from aestack import magic
+from aestack import magic, build_network
 
 logging.getLogger().setLevel(logging.DEBUG)
 
@@ -13,7 +13,7 @@ X, y = load_pictures('../../data/Emotions/')
 X_train, X_test, y_train, y_test = split_data(X, y, 80)
 print("Done!")
 
-layers = [2000, 1000, 7]
+layers = [1200, 700, 200, 7]
 params = magic(layers, X_train)
 del(params['data'])
 encoder_iter = mx.io.NDArrayIter(X_train,
@@ -25,19 +25,9 @@ encoder_val_iter = mx.io.NDArrayIter(X_test,
 
 print ('Building architecture...')
 
-data = mx.sym.var('data')
-data = mx.sym.flatten(data=data)
+arch = build_network(layers)
 
-layer1 = mx.symbol.FullyConnected(data=data, num_hidden=layers[0], name='layer_'+str(layers[0]))
-layer1_activation = mx.sym.Activation(data=layer1, act_type='sigmoid', name='layer_'+str(layers[0])+'_activation')
-
-layer2 = mx.symbol.FullyConnected(data=layer1_activation, num_hidden=layers[1], name='layer_'+str(layers[1]))
-layer2_activation = mx.sym.Activation(data=layer2, act_type='sigmoid', name='layer_'+str(layers[1])+'_activation')
-
-layer3 = mx.symbol.FullyConnected(data=layer2_activation, num_hidden=layers[2], name='layer_'+str(layers[2]))
-softmax = mx.sym.SoftmaxOutput(data=layer3, name="softmax")
-
-model = mx.mod.Module(symbol=softmax, context=mx.gpu())
+model = mx.mod.Module(symbol=arch, context=mx.gpu())
 t = time.clock()
 print ("Training start")
 model.fit(encoder_iter,

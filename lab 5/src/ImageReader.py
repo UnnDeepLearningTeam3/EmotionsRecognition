@@ -11,7 +11,7 @@ def load_pictures(path):
     labels = []
     for label_idx, emotion in enumerate(emotions):
         pics = [pic for pic in glob.glob(path + '%s/*' % emotion)]
-        for pic in pics[:500]:#pics:#np.random.choice(pics, len(pics)):
+        for pic in pics[:100]:#pics:#np.random.choice(pics, len(pics)):
             img = cv2.imread(pic)
             img = img.astype('float32') / 255
             pictures.append(img)

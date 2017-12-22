@@ -49,3 +49,21 @@ def magic(layer_sizes, X_train, initial_size=128*128*3, batch_size=1):
                                          y_train,
                                          batch_size, shuffle=True)
     return params
+
+
+def build_network(layers):
+    data = mx.sym.var('data')
+    data = mx.sym.flatten(data=data)
+
+    layer_activation = data
+
+    for i, num_hidden in enumerate(layers):
+        layer_name = 'layer_'+str(num_hidden)
+        activation_name = 'layer_'+str(num_hidden) + '_activation'
+
+        layer = mx.symbol.FullyConnected(layer_activation, num_hidden=num_hidden, name=layer_name)
+        if i == len(layers)-1:
+            layer_activation = mx.sym.SoftmaxOutput(data=layer, name="softmax")
+        else:
+            layer_activation = mx.sym.Activation(data=layer, act_type='sigmoid', name=activation_name)
+    return layer_activation
